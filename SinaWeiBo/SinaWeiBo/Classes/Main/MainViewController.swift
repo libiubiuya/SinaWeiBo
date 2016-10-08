@@ -12,15 +12,35 @@ class MainViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        addChildViewController()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func addChildViewController(childController: UIViewController, title: String, imageName: String) {
+        
+        // 设置导航栏内容
+        childController.title = title
+        childController.tabBarItem.image = UIImage(named: imageName)
+        childController.tabBarItem.selectedImage = UIImage(named: imageName + "_highlighted")
+        
+        // 设置tabbar
+        tabBar.tintColor = UIColor.orange
+        
+        // 创建导航控制器
+        let nav = UINavigationController()
+        nav.addChildViewController(childController)
+        
+        // 添加控制器到tabbarVC
+        addChildViewController(nav)
+        
     }
     
+    func addChildViewController() {
+        addChildViewController(childController: HomeTableViewController(), title: "首页", imageName: "tabbar_home")
+        addChildViewController(childController: MessageTableViewController(), title: "消息", imageName: "tabbar_message_center")
+        addChildViewController(childController: DiscoverTableViewController(), title: "发现", imageName: "tabbar_discover")
+        addChildViewController(childController: ProfileTableViewController(), title: "我", imageName: "tabbar_profile")
+    }
 
     /*
     // MARK: - Navigation
